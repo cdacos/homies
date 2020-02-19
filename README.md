@@ -1,21 +1,26 @@
 # Homies
 
-<img src="homies.png" alt="homies" style="width: 200px;"/>
+Many thanks to Nicolas Mattia - this is a lightly customised fork of his repo:
+https://github.com/nmattia/homies/
 
-Reproducible set of dotfiles and packages for Linux and macOS
+## Reproducible set of dotfiles and packages for Linux and macOS
 
----
+### Install Nix
 
-This is the setup I use on all my machines. The installation process is very
-simple and allows me to get up and running on any new machine in a matter of
-seconds. The following is run on a pristine Ubuntu machine with `curl`
-available:
+``` shell
+$ sh <(curl https://nixos.org/nix/install)
+```
+
+If it's a machine with a single user who installs packages, then the "Single User Installation" (the default) is the easiest to maintain. (The /nix folder has this user's ownership.) In a multi-admin host, the "Multi User Installation" is better, and NixOS is probably best. Refer to the Nix [manual](https://nixos.org/nix/manual/#chap-installation).
+
+### Install our environment
 
 ``` shell
 $ # install from the latest master
-$ nix-env -if https://github.com/nmattia/homies/tarball/master --remove-all
+$ nix-env -if https://github.com/cdacos/homies/tarball/master --remove-all
 $ # make sure that the .bashrc is sourced
 $ echo 'if [ -x "$(command -v bashrc)" ]; then $(bashrc); fi' >> ~/.bashrc
+$ source ~/.bashrc
 ```
 
 The homies will be available in all subsequent shells, including the

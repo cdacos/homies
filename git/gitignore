@@ -1,5 +1,10 @@
-result
-result-*
-*.swp
-tags
-rusty-tags.vi
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+.pyc
+.temp
+.env
+.eggs
+.o

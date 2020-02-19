@@ -1,85 +1,49 @@
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+if [[ -z $PS1 ]]; then return; fi
+if [[ -n $IN_NIX_SHELL ]]; then return; fi
 
-# No locking on Ctrl-S
+if [[ ! -d ~/.temp ]]; then mkdir ~/.temp; fi
+
+shopt -s histappend
+# https://stackoverflow.com/a/19533853/199134
+# Eternal bash history.
+# ---------------------
+# Undocumented feature which sets the size to "unlimited".
+# http://stackoverflow.com/questions/9457233/unlimited-bash-history
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+export HISTFILE=~/.bash_global_history
+# Force prompt to write history after every command.
+# http://superuser.com/questions/20900/bash-history-loss
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+alias ls='ls --color'
+alias ll='ls -lh'
+alias lt='ls -lhtr'
+alias la='ls -la'
+alias lsmod='stat -f "%Mp%Lp %N"'
+alias grep='grep --color=auto'
+alias df='df -h'
+alias rsync='rsync --progress'
+alias bc='bc -l'
+
+# stty intr ^k
+# Disable XON/XOFF ctrl-s freeze, ctrl-q resume:
 stty -ixon
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-alias gti="git"
-alias :e="vim"
-alias gd="git diff"
-alias xo="xdg-open"
-alias grephs="grep --exclude-dir .stack-work --include '*.hs'"
-alias tmp='cd $(mktemp -d)'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-function t {
-    if [ -n "$1" ] && [ -d "$1" ]; then
-        # On Ubuntu, sets the window title
-        printf "\e]2;${1%/}\a"
-        cd "$1"
-    fi
-    tmux -2 new-session \; split-window -h \; attach
+function Zgit_parse_branch {
+  git branch 2>> /dev/null 2>&1 | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# GHC(i) with custom set of packages
-
-ghc-shell() {
-  nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])"
-}
-
-ghci-with() {
-  nix-shell \
-    -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])" \
-    --run ghci
-}
-
-##
-## history: http://mywiki.wooledge.org/BashFAQ/088
-##
-
-# Big history
-HISTFILESIZE=10000
-HISTSIZE=10000
-
-# history -a causes an immediate write of all new history lines
-# (instead of upon shell exit)
-PROMPT_COMMAND="history -a"
-
-# histappend which causes all new history lines to be appended, and ensures
-# that multiple logins do not overwrite each other's history
-shopt -s histappend
-
-##
-## prompt
-##
-
-PS1='\[\033[01;34m\]\w\[\033[00m\]\$ '
+export PS1="\[\e[32m\]\u\[\e[39m\]@\[\e[34m\]\h\[\e[39m\] \[\e[33m\]\W\[\e[0m\] \[\e[36m\]\$(Zgit_parse_branch)\[\e[00m\] \[\e[37m\]\D{%F %T}\[\e[39m\]\n\$ "
 
 ##
 ## completion

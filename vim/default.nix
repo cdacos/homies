@@ -30,35 +30,19 @@ let
   extraPackages = with vimPlugins;
     [
 
-      ctrlp
-      elm-vim
       fugitive
-      nerdcommenter
-      nerdtree
-      purescript-vim
       surround
-      syntastic
-      #tmux-navigator
-      vim-airline
-      vim-colorschemes
-      vim-easymotion
-      vim-indent-guides
-      vim-markdown
-      vim-multiple-cursors
-      vim-nix
-      vim-toml
-      vim-tmux-navigator
-      vim-trailing-whitespace
-      vimproc
-      YouCompleteMe
-      (
-        vimUtils.buildVimPlugin
-          {
-            name = "vim-terraform";
-            src = sources.vim-terraform;
-            buildPhase = ":";
-          }
-      )
+      undotree
+      vim-gitgutter
+      vim-fugitive
+      vim-monokai-pro
+      vim-polyglot
+      # (vimUtils.buildVimPlugin
+      #   { name = "vim-terraform";
+      #     src = sources.vim-terraform;
+      #     buildPhase = ":";
+      #   }
+      # )
 
     ];
   customRC = vimUtils.vimrcFile
