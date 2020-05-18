@@ -1,16 +1,16 @@
 [user]
   name = Carlos da Costa
-  email = git@cdacosta.com
+  email = github@cdacosta.com
 [push]
   default = current
 [branch]
   autosetuprebase = always
 [merge]
-  ff=no
+  ff = false
 [pull]
   rebase = true
 [format]
-  pretty = format:%Cblue%h%Creset %C(yellow)%ad%Creset%Cblue%d%Creset %s %Cgreen%aN%Creset %C(yellow)%ar%Creset
+  pretty = format:%C(cyan)%h%C(reset) %C(yellow)%ad%C(reset) %C(green)%<(8,trunc)%aN%C(reset)%C(cyan)%d%C(reset) %s
 [log]
   date = format:%Y-%m-%d %H:%M
 [blame]
@@ -22,13 +22,19 @@
 [difftool]
   prompt = false
 [core]
-  excludesfile = SUBSTITUTE_GITIGNORE
+  excludesfile = ~/.gitignore_global
   editor = code --wait
 [alias]
-  recent = !git for-each-ref --sort=-committerdate refs/heads --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)'|column -ts'|'
-  carlos = !git for-each-ref --sort=-committerdate refs/heads --format='%(HEAD)%(color:yellow)%(refname:short)    %(color:bold green)%(committerdate:relative)    %(color:blue)%(subject)    %(color:magenta)%(authorname)%(color:reset)'
-  pushf = push --force-with-lease
+  a = add
+  b = branch
+  blm = blame -w --show-number --first-parent
   co = checkout
-  recent-branches=for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
-  graph = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  infograph = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  g = log --graph
+  l = log --first-parent
+  ll = log --simplify-by-decoration
+  m = merge --no-ff -e
+  p = pull --rebase
+  pushf = push --force-with-lease
+  s = status
+  sl = stash list '--pretty=format:%C(cyan)%h%C(reset) %C(yellow)%ad%C(reset)%C(green)%gd%C(reset)%C(cyan)%d%C(reset) %s'
+  sk = "!gitk '--argscmd=git stash list --pretty=format:%gd^!'&"

@@ -7,5 +7,6 @@ Thumbs.db
 .temp
 .env
 .eggs
+.local
 .o
-.venv
+.cfg

@@ -35,6 +35,10 @@ alias df='df -h'
 alias rsync='rsync --progress'
 alias bc='bc -l'
 
+# https://www.atlassian.com/git/tutorials/dotfiles
+alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+#config config --local status.showUntrackedFiles no
+
 # stty intr ^k
 # Disable XON/XOFF ctrl-s freeze, ctrl-q resume:
 stty -ixon
@@ -42,14 +46,16 @@ stty -ixon
 function Zgit_parse_branch {
   git branch 2>> /dev/null 2>&1 | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
-
 export PS1="\[\e[32m\]\u\[\e[39m\]@\[\e[34m\]\h\[\e[39m\] \[\e[33m\]\W\[\e[0m\] \[\e[36m\]\$(Zgit_parse_branch)\[\e[00m\] \[\e[37m\]\D{%F %T}\[\e[39m\]\n\$ "
 
-##
-## completion
-##
+# https://github.com/junegunn/fzf
+export FZF_DEFAULT_COMMAND="rg --color auto --files"
+if command -v fzf-share >/dev/null; then
+  source "$(fzf-share)/key-bindings.bash"
+  source "$(fzf-share)/completion.bash"
+fi
 
-# Copied over from the default Ubuntu config
+# bash-completion:
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -57,7 +63,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
 for bcfile in ~/.nix-profile/etc/bash_completion.d/* ; do
   . $bcfile
 done
