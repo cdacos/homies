@@ -11,8 +11,6 @@ let
     (lib.concatStringsSep "\n"
     [ (builtins.readFile ./bashrc)
       ''
-      source ${fzf}/share/fzf/completion.bash
-      source ${fzf}/share/fzf/key-bindings.bash
       NIX_PATH=nixpkgs=${sources.nixpkgs}
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
       ''
