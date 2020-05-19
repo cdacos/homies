@@ -64,17 +64,5 @@
         "type": "tarball",
         "url": "https://github.com/dan-t/rusty-tags/archive/c5a88e102e3e65b55ef15624e4c724ce9039690d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-terraform": {
-        "branch": "master",
-        "description": "basic vim/terraform integration",
-        "homepage": "http://hashivim.github.io/vim-terraform",
-        "owner": "hashivim",
-        "repo": "vim-terraform",
-        "rev": "6ee2aab70d8cd3d2405b3042141c94766ea461b0",
-        "sha256": "1zld21a0l94hg3qvpb6rzi8kvv9f86mn7pl95rjvs022vfprry05",
-        "type": "tarball",
-        "url": "https://github.com/hashivim/vim-terraform/archive/6ee2aab70d8cd3d2405b3042141c94766ea461b0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
