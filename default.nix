@@ -28,6 +28,7 @@ let
       pkgs.nix-diff
       pkgs.ripgrep
       pkgs.tree
+      pkgs.wol
     ];
 
   ## Some customizations
@@ -47,8 +48,7 @@ let
     { inherit
         makeWrapper
         symlinkJoin
-        writeText
-        ;
+        writeText;
       tmux = pkgs.tmux;
     });
 

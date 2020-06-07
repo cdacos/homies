@@ -38,6 +38,7 @@ set sidescroll=1
 set laststatus=2
 set list
 set listchars=tab:>-,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
+set backspace=indent,eol,start
 
 " Paste
 nmap <C-S-v> :setlocal paste! paste?<cr> " Paste without reindenting
@@ -98,4 +99,4 @@ nnoremap <leader>s :call FzyCommand("fd -t f", ":sp")<cr>
 
 " Theming
 set term=xterm-256color
-color monokai-phoenix
+" color monokai-phoenix

@@ -11,7 +11,6 @@
 , vim_configurable
 , vimUtils
 , vimPlugins
-, haskellPackages
 , rusty-tags
 , lib
 , ctags
@@ -29,13 +28,12 @@ let
 
   extraPackages = with vimPlugins;
     [
-
-      fugitive
+      # fugitive
       surround
       undotree
-      vim-gitgutter
-      vim-fugitive
-      vim-monokai-pro
+      # vim-gitgutter
+      # vim-fugitive
+      # vim-monokai-pro
       vim-polyglot
       # (vimUtils.buildVimPlugin
       #   { name = "vim-terraform";
@@ -43,7 +41,6 @@ let
       #     buildPhase = ":";
       #   }
       # )
-
     ];
   customRC = vimUtils.vimrcFile
     {
@@ -57,7 +54,7 @@ symlinkJoin {
   postBuild = ''
     wrapProgram "$out/bin/vim" \
     --add-flags "-u ${customRC}" \
-      --prefix PATH ':' '${python37}/bin:${coreutils}/bin:${cargo}/bin:${ctags}/bin:${rusty-tags}/bin:${haskellPackages.hasktags}/bin:${git}/bin:${tmux}/bin'
+    --prefix PATH ':' '${python37}/bin:${coreutils}/bin:${cargo}/bin:${ctags}/bin:${rusty-tags}/bin:${git}/bin:${tmux}/bin'
   '';
   paths = [ vim ];
 }
