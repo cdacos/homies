@@ -45,6 +45,9 @@ alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # Disable XON/XOFF ctrl-s freeze, ctrl-q resume:
 stty -ixon
 
+# Rust toolchain
+source $HOME/.cargo/env
+
 function Zgit_parse_branch {
   git branch 2>> /dev/null 2>&1 | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
