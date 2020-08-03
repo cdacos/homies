@@ -25,7 +25,7 @@ export HISTFILE=~/.bash_global_history
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-export TERM=linux
+export TERM=xterm
 
 alias ls='ls --color'
 alias ll='ls -lh'
