@@ -8,7 +8,7 @@ https://github.com/nmattia/homies/
 ### Install Nix
 
 ``` shell
-$ sh <(curl https://nixos.org/nix/install)
+$ curl -L https://nixos.org/nix/install | sh
 ```
 
 If it's a machine with a single user who installs packages, then the "Single User Installation" (the default) is the easiest to maintain. (The /nix folder has this user's ownership.) In a multi-admin host, the "Multi User Installation" is better, and NixOS is probably best. Refer to the Nix [manual](https://nixos.org/nix/manual/#chap-installation).
