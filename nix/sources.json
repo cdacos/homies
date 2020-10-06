@@ -62,7 +62,7 @@
         "rev": "c5a88e102e3e65b55ef15624e4c724ce9039690d",
         "sha256": "03pza329wz4fnfgd2ahlamrsp9799ich6769vj2sg1ymlyhxh3dz",
         "type": "tarball",
-        "url": "https://github.com/dan-t/rusty-tags/archive/c5a88e102e3e65b55ef15624e4c724ce9039690d.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/75f4ba05c63be3f147bcc2f7bd4ba1f029cedcb1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

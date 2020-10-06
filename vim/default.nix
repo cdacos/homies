@@ -11,7 +11,6 @@
 , vim_configurable
 , vimUtils
 , vimPlugins
-, rusty-tags
 , lib
 , ctags
 , python37

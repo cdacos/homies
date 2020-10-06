@@ -9,7 +9,6 @@ let
       # Customized packages
       bashrc
       git
-      nixpkgs-fmt
       python
       tmux
       vim
@@ -25,7 +24,6 @@ let
       # pkgs.moreutils
       pkgs.niv
       pkgs.nix
-      pkgs.nix-diff
       pkgs.ripgrep
       pkgs.tree
       pkgs.wol
@@ -52,17 +50,11 @@ let
       tmux = pkgs.tmux;
     });
 
-  naersk = pkgs.callPackage pkgs.sources.naersk {};
-
-  rusty-tags = naersk.buildPackage pkgs.sources.rusty-tags;
-  nixpkgs-fmt = naersk.buildPackage pkgs.sources.nixpkgs-fmt;
-
   # Vim with a custom vimrc and set of packages
   vim = pkgs.callPackage ./vim
     { inherit
         git
-        tmux
-        rusty-tags;
+        tmux;
     };
 
 in
