@@ -1,20 +1,21 @@
 [user]
-  name = Carlos da Costa
-  email = github@cdacosta.com
+	name = Carlos da Costa
+	email = github@cdacosta.com
+[init]
+	defaultBranch = main
 [push]
   default = current
+	followTags = true
 [branch]
   autosetuprebase = always
 [merge]
-  ff = false
+	ff = false
 [pull]
-  rebase = true
+	rebase = true
 [format]
-  pretty = format:%C(cyan)%h%C(reset) %C(yellow)%ad%C(reset) %C(green)%<(8,trunc)%aN%C(reset)%C(cyan)%d%C(reset) %s
+	pretty = format:%C(cyan)%h%C(reset) %C(yellow)%ad%C(reset) %C(green)%<(8,trunc)%aN%C(reset)%C(cyan)%d%C(reset) %s
 [log]
-  date = format:%Y-%m-%d %H:%M
-[blame]
-  date = format:%Y-%m-%d %H:%M
+	date = format:%Y-%m-%d %H:%M
 [diff]
   tool = default-difftool
 [difftool "default-difftool"]
@@ -25,16 +26,38 @@
   excludesfile = ~/.gitignore_global
   editor = code --wait
 [alias]
-  a = add
-  b = branch
-  blm = blame -w --show-number --first-parent
-  co = checkout
-  g = log --graph
-  l = log --first-parent
-  ll = log --simplify-by-decoration
-  m = merge --no-ff -e
-  p = pull --rebase
-  pushf = push --force-with-lease
-  s = status
-  sl = stash list '--pretty=format:%C(cyan)%h%C(reset) %C(yellow)%ad%C(reset)%C(green)%gd%C(reset)%C(cyan)%d%C(reset) %s'
-  sk = "!gitk '--argscmd=git stash list --pretty=format:%gd^!'&"
+	a = add
+	b = branch
+	blm = blame -w --show-number --first-parent
+	co = "!f() { \
+		if [ \"$1\" = \"-b\" ] || [ \"$@\" = \"\" ]; then \
+			git checkout $@; \
+		else \
+			exact=$(git branch | grep '^[ *+]*'$1'$' | sed 's/[ *+]//g'); \
+			if [ ! \"$exact\" = \"\" ]; then \
+				b=$exact; \
+			else \
+				fuzzy=$(git branch | grep $1 | sed 's/[ *+]//g'); \
+				if [ \"$fuzzy\" = \"\" ]; then \
+					b=$1; \
+				elif [ $(echo \"$fuzzy\" | wc -l) -ne 1 ]; then \
+					printf \"Matched too many branches:\n\n\"; \
+					printf \"$fuzzy\"; \
+					exit; \
+				else \
+					b=$fuzzy; \
+				fi; \
+			fi; \
+			git checkout \"$b\"; \
+		fi; \
+	}; f"
+	g = log --graph
+	l = log --first-parent
+	ll = log --simplify-by-decoration
+	m = merge --no-ff -e
+	p = pull --rebase
+	pushf = push --force-with-lease
+	s = status
+	sl = stash list '--pretty=format:%C(cyan)%h%C(reset) %C(yellow)%ad%C(reset)%C(green)%gd%C(reset)%C(cyan)%d%C(reset) %s'
+	sk = "!gitk '--argscmd=git stash list --pretty=format:%gd^!'&"
+	tags = "tag -n99"
