@@ -7,20 +7,20 @@ https://github.com/nmattia/homies/
 
 ### Install Nix
 
-``` shell
-$ curl -L https://nixos.org/nix/install | sh
+```sh
+sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
 If it's a machine with a single user who installs packages, then the "Single User Installation" (the default) is the easiest to maintain. (The /nix folder has this user's ownership.) In a multi-admin host, the "Multi User Installation" is better, and NixOS is probably best. Refer to the Nix [manual](https://nixos.org/nix/manual/#chap-installation).
 
 ### Install our environment
 
-``` shell
-$ # install from the latest master
-$ nix-env -if https://github.com/cdacos/homies/tarball/master --remove-all
-$ # make sure that the .bashrc is sourced
-$ echo 'if [ -x "$(command -v bashrc)" ]; then $(bashrc); fi' >> ~/.bashrc
-$ source ~/.bashrc
+```sh
+# install from the latest main
+nix-env -if https://github.com/cdacos/homies/tarball/main --remove-all
+# make sure that the .bashrc is sourced
+echo 'if [ -x "$(command -v bashrc)" ]; then $(bashrc); fi' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 The homies will be available in all subsequent shells, including the
@@ -33,42 +33,50 @@ configuration, etc). See the [introduction blog post][post] for an overview.
 
 Trying out the package set:
 
-``` shell
-$ nix-shell --pure
+```sh
+nix-shell --pure
 ```
 
 Installing the package set:
 
-``` shell
-$ nix-env -f default.nix -i --remove-all
+```sh
+nix-env -f default.nix -i --remove-all
 ```
 
 Listing the currently installed packages:
 
-``` shell
-$ nix-env -q
+```sh
+nix-env -q
 ```
 
 Listing the previous and current configurations:
 
-``` shell
-$ nix-env --list-generations
+```sh
+nix-env --list-generations
 ```
 
 Rolling back to the previous configuration:
 
-``` shell
-$ nix-env --rollback
+```sh
+nix-env --rollback
 ```
 
 Deleting old configurations:
 
-``` shell
-$ nix-env --delete-generations [3 4 9 | old | 30d]
+```sh
+nix-env --delete-generations [3 4 9 | old | 30d]
 ```
 
 Update packages:
 
-```shell
-$ niv update
+```sh
+niv update
+```
+
+## Tracking the upstream repo
+
+```sh
+git remote add upstream git@github.com:nmattia/homies.git
+git fetch upstream
+git rebase upstream/master
 ```

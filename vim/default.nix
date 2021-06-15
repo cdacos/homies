@@ -12,7 +12,6 @@
 , vimUtils
 , vimPlugins
 , lib
-, ctags
 , python37
 , stdenv
 }:
@@ -53,7 +52,7 @@ symlinkJoin {
   postBuild = ''
     wrapProgram "$out/bin/vim" \
     --add-flags "-u ${customRC}" \
-    --prefix PATH ':' '${python37}/bin:${coreutils}/bin:${cargo}/bin:${ctags}/bin:${rusty-tags}/bin:${git}/bin:${tmux}/bin'
+    --prefix PATH ':' '${python37}/bin:${coreutils}/bin:${cargo}/bin:${git}/bin:${tmux}/bin'
   '';
   paths = [ vim ];
 }

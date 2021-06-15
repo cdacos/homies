@@ -11,10 +11,10 @@
         "homepage": null,
         "owner": "nmattia",
         "repo": "naersk",
-        "rev": "dcee40445cfe301ced2d1b11290d6a94ff3aadb9",
-        "sha256": "0n9d1zirrhi9cr31kbxifrxkk52grbny04xnn1qhmvskyc11pcm4",
+        "rev": "4f7426c362809e472d03c369d3674317c32b6863",
+        "sha256": "1c0f2c4gkfmrpykmk25ck8x17nq7l14di8vvxlibbigzy5jacdaf",
         "type": "tarball",
-        "url": "https://github.com/nmattia/naersk/archive/dcee40445cfe301ced2d1b11290d6a94ff3aadb9.tar.gz",
+        "url": "https://github.com/nmattia/naersk/archive/4f7426c362809e472d03c369d3674317c32b6863.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -23,10 +23,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "e9e31a7248e0728ab67a5a911b7ef704b1e399c4",
-        "sha256": "0xc781ivc0qrbnvk3njfz6xxpfqr46f5gw5ykjc0588jy86bmk91",
+        "rev": "e0ca65c81a2d7a4d82a189f1e23a48d59ad42070",
+        "sha256": "1pq9nh1d8nn3xvbdny8fafzw87mj7gsmp6pxkdl65w2g18rmcmzx",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/e9e31a7248e0728ab67a5a911b7ef704b1e399c4.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/e0ca65c81a2d7a4d82a189f1e23a48d59ad42070.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -35,10 +35,10 @@
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "482991f346220cffb659e87c57cff542e5223740",
-        "sha256": "01s38nvmkgrz11vnn2z54j9lm5lvwwbhhqyrpw9b91hnwdcpvl5z",
+        "rev": "0e98d7acabffab8ad05ae46c2a32c7ed624928ef",
+        "sha256": "0xnik0wa0w7703nbzd7vmcbmx15qil67k21lhir7gxmgvyn1229v",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/482991f346220cffb659e87c57cff542e5223740.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/0e98d7acabffab8ad05ae46c2a32c7ed624928ef.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-fmt": {
@@ -47,22 +47,10 @@
         "homepage": "https://nix-community.github.io/nixpkgs-fmt/",
         "owner": "nix-community",
         "repo": "nixpkgs-fmt",
-        "rev": "2015c9142d4093486a764c0dbcc12798c37b40e9",
-        "sha256": "0nq6m8b6qw0hhgf81i2y3gdz2dl3kvsd67fi60f3ab9xcfk1x3c2",
+        "rev": "d5809df4def9f47421c871101e34b917b76f2118",
+        "sha256": "1f1bg739di1fmgasp105j45x1zbf3walngfv834ns0qw7zabwm2b",
         "type": "tarball",
-        "url": "https://github.com/nix-community/nixpkgs-fmt/archive/2015c9142d4093486a764c0dbcc12798c37b40e9.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "rusty-tags": {
-        "branch": "master",
-        "description": "Create ctags/etags for a cargo project",
-        "homepage": "",
-        "owner": "dan-t",
-        "repo": "rusty-tags",
-        "rev": "c5a88e102e3e65b55ef15624e4c724ce9039690d",
-        "sha256": "03pza329wz4fnfgd2ahlamrsp9799ich6769vj2sg1ymlyhxh3dz",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/00e3a3a8552f844a82ddb56a9e96675bbea07739.tar.gz",
+        "url": "https://github.com/nix-community/nixpkgs-fmt/archive/d5809df4def9f47421c871101e34b917b76f2118.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
