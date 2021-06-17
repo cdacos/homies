@@ -15,18 +15,29 @@ let
 
       pkgs.curl
       pkgs.direnv
-      pkgs.fzf
       pkgs.gnupg
       pkgs.htop
-      pkgs.httpie
-      pkgs.jq
       pkgs.less
-      # pkgs.moreutils
       pkgs.niv
       pkgs.nix
-      pkgs.ripgrep
-      pkgs.tree
       pkgs.wol
+
+      # 'Modern' Unix commands
+      # https://github.com/ibraheemdev/modern-unix
+      pkgs.bat # bat (cat)
+      pkgs.du-dust # dust (du)
+      pkgs.exa # exa (ls)
+      pkgs.fzf # fzf (fuzzy finder)
+      pkgs.fd # fd (find)
+      pkgs.sd # sd (sed)
+      pkgs.ripgrep # rg (grep / ag)
+      pkgs.jq # jq (json)
+      pkgs.broot # br (tree file nav)
+      pkgs.tealdeer # tldr
+      pkgs.hyperfine # hyperfine (command line benchmarking)
+      pkgs.bottom # btm (top / htop)
+      pkgs.procs # procs (ps)
+      pkgs.xh # xh (httpie clone)
     ];
 
   ## Some customizations
