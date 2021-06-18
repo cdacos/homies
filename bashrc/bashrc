@@ -27,28 +27,31 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 export TERM=xterm
 
-# 'Modern' Unix commands, aliased over originals:
-alias cat='bat'
-alias CAT=$(which cat)
-alias du='dust'
-alias DU=$(which du)
-alias find='fd'
-alias FIND=$(which find)
-alias grep='rg'
-alias GREP=$(which grep)
-alias htop='btm'
-alias HTOP=$(which htop)
-alias ls='exa'
-alias LS=$(which ls)
-alias man='tldr'
-alias MAN=$(which man)
-alias sed='sd'
-alias SED=$(which sed)
-alias tree='br'
-alias TREE=$(which tree)
-alias ps='procs'
-alias PS=$(which ps)
+function Zalias_cmd {
+  old=$1
+  new=$2
+  # If the old command is found, make an upper-case alias to it
+  location=$(command -v $old)
+  if [ -x "$location" ]; then
+    alias ${old^^}=$location
+  fi
+  # Alias the command
+  alias $old=$new
+}
 
+# 'Modern' Unix commands, aliased over originals:
+Zalias_cmd cat bat
+Zalias_cmd du dust
+Zalias_cmd find fd
+Zalias_cmd grep rg
+Zalias_cmd htop btm
+Zalias_cmd ls exa
+Zalias_cmd man tldr
+Zalias_cmd sed sd
+Zalias_cmd tree br
+Zalias_cmd ps procs
+
+# Helpful aliases
 alias ll='exa -l'
 alias lt='exa -l -tmodified -snew'
 alias la='exa -la'
