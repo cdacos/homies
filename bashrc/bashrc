@@ -68,8 +68,10 @@ alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # Disable XON/XOFF ctrl-s freeze, ctrl-q resume:
 stty -ixon
 
-# Rust toolchain
-source $HOME/.cargo/env
+if [ -d $HOME/.cargo ]; then
+  # Rust toolchain
+  source $HOME/.cargo/env
+fi
 
 function Zgit_parse_branch {
   git branch 2>> /dev/null 2>&1 | SED -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
@@ -83,6 +85,8 @@ if command -v fzf-share >/dev/null; then
   source "$(fzf-share)/completion.bash"
 fi
 
+export BAT_THEME="Coldark-Dark"
+
 # bash-completion:
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -94,6 +98,143 @@ fi
 for bcfile in ~/.nix-profile/etc/bash_completion.d/* ; do
   . $bcfile
 done
+
+function Zping {
+  until ping -c1 $1 2> /dev/null ; do :; done
+}
+
+function Zwol {
+    if [ "$1" == "" ]; then
+        Zwol "2C:F0:5D:9F:28:82" 192.168.173.73 c3900x
+        # Zwol "C0:4A:00:02:C6:28" 192.168.173.65 c3900x-b
+    else
+        echo $3
+        Broadcast=255.255.255.255
+        PortNumber=7
+        wol "$1" -p 9
+        Zping $2
+    fi
+}
+
+function Zarch_pull_from_aur {
+    NAME=$1
+    REPO="https://aur.archlinux.org/$NAME.git"
+    ARCH_DIR=~/src/arch_linux
+    DIR=$ARCH_DIR/$NAME
+    UPDATE=$2
+    IS_NEW=""
+
+    echo ""
+    echo "Zarch $NAME"
+
+    if [ ! -d $DIR ]; then
+        mkdir -p $ARCH_DIR
+        pushd $ARCH_DIR &> /dev/null
+        git clone $REPO
+        popd &> /dev/null
+        IS_NEW="yes"
+    fi
+
+    pushd $DIR &> /dev/null
+    OLD_HEAD=$(git rev-parse HEAD)$IS_NEW
+    git pull origin master &> /dev/null
+    NEW_HEAD=$(git rev-parse HEAD)
+
+    # Show latest git entry
+    git log -1
+
+    if [ ! "$2" = "" ] || [ ! "$OLD_HEAD" = "$NEW_HEAD" ]; then
+        # Show build steps (sanity check)
+        less PKGBUILD
+
+        read -r -p "Install this build script? [y/N] " response
+        if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+            git clean -fd
+            makepkg -si
+        else
+            echo "$ less $DIR/PKGBUILD"
+            echo "$ pushd $DIR && git clean -fd && makepkg -si && popd"
+            echo "Aborted."
+            return 1
+        fi
+    fi
+
+    # Show latest built artifact
+    ls -lt | head -n2 | tail -n1
+    popd &> /dev/null
+}
+
+function Zarch {
+    if [ ! "$1" = "" ]; then
+        Zarch_pull_from_aur "$1" "autoupdate"
+        exit 0
+    fi
+
+    # If key signing errors: signature from "Alad Wenter <alad@archlinux.org>" is unknown trust
+    # sudo pacman-key --refresh-keys
+
+    echo "+ sudo pacman -Syu"
+    sudo pacman -Syu
+
+    echo "+ sudo pacman -Syu base"
+    sudo pacman -S --needed base
+
+    echo "+ base-devel"
+    sudo pacman -S --noconfirm --needed base-devel 2>&1 | grep -v "is up to date" | grep -v "^[ ]*$"
+
+    echo "+ Chosen apps and libraries"
+    sudo pacman -S --needed \
+        awesome-terminal-fonts noto-fonts noto-fonts-emoji ttf-croscore ttf-dejavu ttf-droid ttf-roboto ttf-ubuntu-font-family \
+        bbswitch \
+        cpupower \
+        firefox \
+        fwupd \
+        gnome \
+        gsimplecal \
+        xf86-video-intel intel-media-driver mesa libva-utils libva-intel-driver libva-mesa-driver mesa-vdpau mesa-demos \
+        intel-undervolt \
+        iwd \
+        libsmbios \
+        lvm2 \
+        lld \
+        nmap \
+        openssh \
+        org.freedesktop.secrets \
+        powertop \
+        pulseaudio \
+        remmina \
+        syncthing \
+        tlp
+        2>&1 | grep -v "is up to date"
+
+    #    code \
+    #    cryptsetup \
+    #    docker docker-compose \
+    #    xf86-video-nouveau
+
+    # util-linux: systemctl enable/start fstrim.timer
+
+    #    nftables \
+    # sudo systemctl enable/start nftables
+
+    #echo "+ Steam and dependencies"
+    #sudo pacman -S --needed steam lib32-nvidia-libgl lib32-openssl-1.0 2>&1 | grep -v "is up to date"
+
+    # My custom code
+    if [ ! -f /usr/bin/lemonbar ]; then
+        pushd ~/src/arch_linux/lemonbar-2020
+        makepkg -si
+        popd
+    fi
+
+    Zarch_pull_from_aur password-gorilla
+    Zarch_pull_from_aur visual-studio-code-bin
+    Zarch_pull_from_aur minecraft-launcher
+    Zarch_pull_from_aur nerd-fonts-iosevka
+    Zarch_pull_from_aur parsec-bin
+    Zarch_pull_from_aur nordvpn-bin
+    Zarch_pull_from_aur zoom
+}
 
 function Zshow_tips {
   ARG="$1"
