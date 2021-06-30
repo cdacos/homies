@@ -160,7 +160,7 @@ function Zarch_pull_from_aur {
     fi
 
     # Show latest built artifact
-    ls -lt | head -n2 | tail -n1
+    lt | tail -n1
     popd &> /dev/null
 }
 
